@@ -36,7 +36,7 @@ script {
 
    stage('Vulnerability Scan - Docker ') {
         steps {
-          sh "sudo docker run  -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --severity=critical http://192.168.0.210:8083/${DOCKER_IMAGE_NAME}"
+          sh "sudo docker run  -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --severity=CRITICAL http://192.168.0.210:8083/${DOCKER_IMAGE_NAME}"
             }
         }
     }
