@@ -25,12 +25,16 @@ pipeline {
     }
    stage('Deploy Image') {
       steps{
-        sh '''
-        docker tag testapp 127.0.0.1:5000/mguazzardo/testapp
-        docker push 127.0.0.1:5000/mguazzardo/testapp   
-        '''
+script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
+                        sh "echo ${DOCKER_HUB_PASSWORD} | sudo docker login -u ${DOCKER_HUB_USERNAME} --password-stdin http://192.168.0.210:8083"
+                        sh "sudo docker tag ${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} 192.168.0.210:8083/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}"
+                        sh "sudo docker push 192.168.0.210:8083/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}"
+                    }
         }
       }
+           
+        }
     }
 }
 
