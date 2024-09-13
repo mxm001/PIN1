@@ -11,16 +11,14 @@ pipeline {
    stages {
    stage('Building image') {
       steps{
-          sh '''
-         sudo docker build -t DOCKER_IMAGE_NAME .
-             '''  
+          sh "     sudo docker build -t ${DOCKER_IMAGE_NAME} ."
         }
     }
   
   
     stage('Run tests') {
       steps {
-        sh "sudo docker run DOCKER_IMAGE_NAME npm test"
+        sh "sudo docker run ${DOCKER_IMAGE_NAME} npm test"
       }
     }
    stage('Deploy Image') {
