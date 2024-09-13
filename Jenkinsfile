@@ -6,7 +6,7 @@ pipeline {
   }
 
   environment {
-    DOCKER_IMAGE_NAME = "elbuo8/webapp:${env.BUILD_NUMBER}"
+    DOCKER_IMAGE_NAME = "admin/webapp:${env.BUILD_NUMBER}"
   }
    stages {
    stage('Building image') {
